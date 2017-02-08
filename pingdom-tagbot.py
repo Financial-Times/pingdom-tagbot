@@ -12,11 +12,12 @@ if __name__ == '__main__':
 	pingdom_apiurl = os.getenv("PINGDOM_APIURL", None)
 	pingdom_user = os.getenv("PINGDOM_USER", None)
 	pingdom_password = os.getenv("PINGDOM_PASSWORD", None)
+	pingdom_account_email = os.getenv("PINGDOM_ACCOUNT_EMAIL", None)
 	pingdom_apikey = os.getenv("PINGDOM_APIKEY", None)
 
 	# check for missing pingdom variables
-	if pingdom_apiurl == None or pingdom_user == None or pingdom_password == None or pingdom_apikey == None:
-		print("@@@ Missing pingdom apiurl, user, password and/or apikey @@@")
+	if pingdom_apiurl == None or pingdom_user == None or pingdom_password == None or pingdom_account_email == None or pingdom_apikey == None:
+		print("@@@ Missing pingdom apiurl, user, password, account email and/or apikey @@@")
 		exit(1)
 
 	# get tag prefixes as variables
@@ -38,9 +39,10 @@ if __name__ == '__main__':
 		exit(1)
 
 	# pingdom api call for list of checks
+	print("Obtaining list of pingdom checks ...")
 	url = pingdom_apiurl + "/api/2.0/checks?include_tags=true"
 	payload = {}
-	headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8', 'App-Key': pingdom_apikey, 'Account-Email':"ftpingdom@ft.com"}
+	headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8', 'App-Key': pingdom_apikey, 'Account-Email':pingdom_account_email}
 	response = requests.get(url, auth=(pingdom_user,pingdom_password), data=json.dumps(payload), headers=headers)
 
 	# check for bad response
@@ -49,6 +51,7 @@ if __name__ == '__main__':
 		exit(1)
 
 	# loop through the checks
+	print("Looping through the pingdom check to examine the tags ...")
 	headings = []
 	headings.append("name")
 	headings.append("type")
@@ -64,7 +67,7 @@ if __name__ == '__main__':
 			# pingdom api call for detail of the check
 			detail_url = pingdom_apiurl + "/api/2.0/checks/" + str(checkid)
 			detail_payload = {}
-			detail_headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8', 'App-Key': pingdom_apikey, 'Account-Email':"ftpingdom@ft.com"}
+			detail_headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8', 'App-Key': pingdom_apikey, 'Account-Email':pingdom_account_email}
 			detail_response = requests.get(detail_url, auth=(pingdom_user,pingdom_password), data=json.dumps(payload), headers=headers)
 
 			# check for bad response
@@ -158,6 +161,7 @@ if __name__ == '__main__':
 		rows.append(row)
 
 	# open output file
+	print("Preparing report ...")
 	csvfile = open(pingdom_csv_file, "w", newline='')
 	writer = csv.writer(csvfile)
 
@@ -177,5 +181,6 @@ if __name__ == '__main__':
 		writer.writerow(row)
 
 	# DONE
+	print("./pingdom_checks.csv has been created")
 
 	exit(0)
