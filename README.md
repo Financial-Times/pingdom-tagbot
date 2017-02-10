@@ -1,6 +1,15 @@
 # pingdom-tagbot
 TAG checking for pingdom
 
+## Prerequisites
+You will need access to a pingdom admin account since they are the only accounts that provide access to register applications that use the pingdom api.
+
+You will need to register the tagbot as an api application - see here: https://help.pingdom.com/hc/en-us/articles/203611082-The-Pingdom-API
+
+Once registered the apikey along with your username and password will be required in the following environmental variables.
+
+You will also need to know the multi-user account-email if your pingdom installation is running shared accounts.
+
 ## Environment variables
 All environment variables are compuilsory.
 
