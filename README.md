@@ -19,7 +19,7 @@ All environment variables are compuilsory.
 ## Execution
 Ensure you have defined the environmental variables
 
-python pingdon-tagbot.py
+python pingdom-tagbot.py
 
 The output is a file named _pingdom_check.csv_ in the local directory
 
@@ -27,11 +27,11 @@ It contains a list of all the pingdom checks with their name and target url as w
 
 two special columns are output "system?" and "tier?"
 
-If there is a tag named systemcode_xxxxxx then xxxxxx will be extracted and output as the systemcode
-If there is a tag named tier_xxxxxx then xxxxxx will be extracted and output as the servicerTier
+If there is a tag named systemcode_xxxxxx then xxxxxx will be extracted and output as the systemcode.
+If there is a tag named tier_xxxxxx then xxxxxx will be extracted and output as the servicerTier.
 
-if a systemcode tag is not supplied then the systemcode? cell will be set to "@ MISSING @"
-if the systemcode is in the cmdb then the systemcode? cell will be set to "Yes"; it not in the cmdb it will be set to "@ NOT IN CMDB @"
+if a systemcode tag is not supplied then the systemcode? cell will be set to "@ MISSING @".
+if the systemcode is in the cmdb then the systemcode? cell will be set to "Yes"; it not in the cmdb it will be set to "@ NOT IN CMDB @".
 
-if a tier tag is not suplied then the tier? cell will be set to "@ MISSING @" 
-if the systemcode is in the cmdb and the tier matches then the tier? cell will be set to "Matching CMDB"; it not matching the cmdb it will be set to "@ MISMATCH CMDB @"
+if a tier tag is not suplied then the tier? cell will be set to "@ MISSING @".
+if the systemcode is in the cmdb and the tier matches then the tier? cell will be set to "Matching CMDB"; it not matching the cmdb it will be set to "@ MISMATCH CMDB @".
